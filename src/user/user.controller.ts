@@ -1,38 +1,63 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, ParseIntPipe} from '@nestjs/common';
-import {CreateUserDTO} from './user.dto/createUser.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { CreateUserDTO } from './user.dto/createUser.dto';
 import { UpdatePutUserDTO } from './user.dto/updatePutUser.dto';
 import { UpdatePatchUserDTO } from './user.dto/updatePatchUser.dto';
 import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
-
-  constructor(private readonly userservice:UserService){}
+  constructor(private readonly userservice: UserService) {}
 
   @Post()
-  async create(@Body() {name,email,password}:CreateUserDTO) {
-   // return { name,email,password };
-   return this.userservice.create({name,email,password});
+  async create(@Body() { name, email, password }: CreateUserDTO) {
+    // return { name,email,password };
+   // return this.userservice.create({ name, email, password });
   }
   @Get()
   async read() {
-    return { users: [] };
+    // return { users: [] };
+    return this.userservice.readAll();
   }
+
+  // nesse caso aqui o id do parseintpipe deve ser id:number
   @Get(':id')
-  async readOne(@Param('id',ParseIntPipe) id) {
-    return { user: {}, id };
+  async readOne(@Param('id', ParseIntPipe) id: number) {
+    // return { user: {}, id };
+   // return this.userservice.readOne(id);
+   return this.userservice.readOneOther(id);
   }
+
   @Put(':id')
-  async updatePut(@Body() body:UpdatePutUserDTO, @Param('id',ParseIntPipe) id) {
-    return { method: 'Put', body, id };
+  async updatePut(
+    @Body() body: UpdatePutUserDTO,
+    @Param('id', ParseIntPipe) id,
+  ) {
+   // return { method: 'Put', body, id };
+   return this.userservice.updatePut(id,body);
   }
+
   @Patch(':id')
-  async updatePatch(@Body() body:UpdatePatchUserDTO, @Param('id',ParseIntPipe) id) {
-    return { method: 'Patch', body, id };
+  async updatePatch(
+    @Body() body: UpdatePatchUserDTO,
+    @Param('id', ParseIntPipe) id,
+  ) {
+    //return { method: 'Patch', body, id };
+    return this.userservice.updatePatch(id,body);
   }
+
   @Delete(':id')
-  async delete(@Param('id',ParseIntPipe) id){
-    return { id}
+  async delete(@Param('id', ParseIntPipe) id) {
+    return { id };
   }
 
   /** 

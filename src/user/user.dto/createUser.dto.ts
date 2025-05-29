@@ -1,12 +1,13 @@
-import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
+import { IsDateString, IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from 'class-validator';
 
 export class CreateUserDTO {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsEmail()
+  
   @IsNotEmpty()
+  @IsEmail()
   email: string;
 
   // se quiser usar senha fraca so zerar tudo menos minLength
@@ -19,4 +20,8 @@ export class CreateUserDTO {
   })
   @IsNotEmpty()
   password: string;
+
+  @IsOptional()
+  @IsDateString()
+  birthAt: string;
 }

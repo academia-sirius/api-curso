@@ -68,6 +68,9 @@ model User {
   profile Profile?
 }
 
-> npx prisma migrate dev --name init
+> [ npx prisma migrate dev --name init ]
+> npx prisma migrate reset (apaga tudo)
+> npx prisma migrate dev --name AddBirthDates
+> npx prisma generate
 
 
