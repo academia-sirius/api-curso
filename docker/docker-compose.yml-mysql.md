@@ -1,17 +1,17 @@
 version: '3.9'
 services:
   mysql:
-    image: mysql:latest
+    image: mysql:9.3.0
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
     restart: on-failure:5
     volumes:
-      - /volume1/docker/mysql:/var/lib/mysql:rw
+      - mysql_data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=server@777         # Senha do root
-      - MYSQL_DATABASE=meubanco                # (opcional) nome do banco de dados padrão
-      - MYSQL_USER=meuusuario                  # (opcional) nome do usuário
-      - MYSQL_PASSWORD=minhasenha              # (opcional) senha do usuário
+      - MYSQL_ROOT_PASSWORD=server@777
+      - MYSQL_DATABASE=appdb
+      - MYSQL_USER=appuser
+      - MYSQL_PASSWORD=secret@777
       - TZ=Africa/Luanda
     ports:
       - 3306:3306
@@ -20,9 +20,9 @@ services:
       - mysqlnet
 
   phpmyadmin:
-    image: phpmyadmin:latest
+    image: phpmyadmin:5.2
     healthcheck:
-      test: curl -f http://localhost:80/ || exit 1
+      test: ["CMD", "curl", "-f", "http://localhost/"]
     restart: on-failure:5
     environment:
       - PMA_HOST=mysql
@@ -39,3 +39,6 @@ services:
 networks:
   mysqlnet:
     driver: bridge
+
+volumes:
+  mysql_data:
