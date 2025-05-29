@@ -19,3 +19,22 @@
 ##### instalar o orm (prisma ou typeorm)
 > npm i -D prisma
 > npx prisma init
+
+
+
+
+
+##### build database for testing
+
+CREATE TABLE `apinest`.`users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(127) NOT NULL,
+  `password` VARCHAR(127) NOT NULL,
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`));
+
+
+  > npx prisma generate
+  > npx prisma db pull

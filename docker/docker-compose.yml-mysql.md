@@ -8,10 +8,10 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=server@777
+      - MYSQL_ROOT_PASSWORD=secret777
       - MYSQL_DATABASE=appdb
       - MYSQL_USER=appuser
-      - MYSQL_PASSWORD=secret@777
+      - MYSQL_PASSWORD=secret777
       - TZ=Africa/Luanda
     ports:
       - 3306:3306
@@ -27,7 +27,7 @@ services:
     environment:
       - PMA_HOST=mysql
       - PMA_PORT=3306
-      - MYSQL_ROOT_PASSWORD=server@777
+      - MYSQL_ROOT_PASSWORD=secret777
     volumes:
       - /volume1/docker/mysql/phpmyadmin/uploads.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini:rw
     ports:
