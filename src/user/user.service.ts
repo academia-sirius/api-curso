@@ -8,7 +8,7 @@ import { UpdatePatchUserDTO } from './user.dto/updatePatchUser.dto';
 export class UserService {
   constructor(private readonly prismaservice: PrismaService) {}
 
-  async create({ name, email, password ,birthAt}: CreateUserDTO) {
+  async create({ name, email, password,birthAt}: CreateUserDTO) {
     return await this.prismaservice.user.create({
       data: {
         name,
@@ -17,8 +17,11 @@ export class UserService {
         birthAt,
       },
       select: {
-        id: true,
-        name: true,
+        id:true,
+        name:true,
+        email:true,
+        password:true,
+        birthAt:true,
       },
     });
   }
@@ -40,19 +43,20 @@ export class UserService {
   }
 
   async readOneOther(id: number) {
-    const findId = this.prismaservice.user.findUnique({
+    const findId = await this.prismaservice.user.findUnique({
       where: { id },
     });
     const total = await this.totalRegistro();
-    if (id < 0 && id > total) {
-        console.log('ID fora do intervalo');
-        throw new NotFoundException('ID fora do intervalo');   
+    if(!(findId)){
+      throw new NotFoundException(`O usuario ${id} nao existe no range de ${total}`)
     }
-   // console.log(`${id} :: ${total}`);
     return findId;
   }
 
   async updatePut(id: number, { name, email, password, birthAt }: UpdatePutUserDTO) {
+        if(!(await this.readOne(id))){
+      throw new NotFoundException(`O usuario ${id} nao existe`)
+    }
     return this.prismaservice.user.update({
         data: { name, email, password , birthAt : birthAt ? new Date(birthAt): ''},
         where:{
@@ -62,11 +66,27 @@ export class UserService {
   }
 
   async updatePatch(id: number, { name, email, password, birthAt }:UpdatePatchUserDTO){
+    const data:any = {};
+    if(birthAt){ data.birthAt = new Date(birthAt); }
+    if(email){ data.email = email; }
+    if(name){ data.name = name; }
+    if(password){ data.password = password; }
+
+    if(!(await this.readOne(id))){
+      throw new NotFoundException(`O usuario ${id} nao existe`)
+    }
     return this.prismaservice.user.update({
-        data: { name, email, password, birthAt },
+        data,
         where:{
             id
         }
     })
+  }
+
+  async Delete(id:number){
+    if(!(await this.readOne(id))){
+      throw new NotFoundException(`O usuario ${id} nao existe`)
+    }
+    return this.prismaservice.user.delete({where:{id}});
   }
 }
