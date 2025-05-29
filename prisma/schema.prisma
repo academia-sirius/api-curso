@@ -17,5 +17,5 @@ model User {
   updatedAt DateTime @default(now()) @db.Timestamp(0)
   @@map("users")
 }
-
 // ao trocar o nome do model users -> user tenho que informar ao banco  @@map("users")
+
