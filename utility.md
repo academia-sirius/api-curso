@@ -7,6 +7,7 @@
 > rm -rf src/user
 
 > git push --set-upstream origin feature-crud-nestjs
+> npm i  class-validator class-transformer @nestjs/mapped-types
 
 #### add validator dto on main/bootstrap
 > npm i class-validator class-transformer
@@ -14,3 +15,7 @@
 ##### para usar o partialtype(DTO)
 > npm i  @nestjs/mapped-types
 > npm i --save @nestjs/mapped-types
+
+##### instalar o orm (prisma ou typeorm)
+> npm i -D prisma
+> npx prisma init
