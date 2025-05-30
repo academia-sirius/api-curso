@@ -7,6 +7,7 @@
 > rm -rf src/user
 
 > git push --set-upstream origin feature-crud-nestjs
+
 > npm i  class-validator class-transformer @nestjs/mapped-types
 
 #### add validator dto on main/bootstrap
