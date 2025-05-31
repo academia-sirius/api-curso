@@ -12,7 +12,7 @@ export class CreateUserDTO {
 
   // se quiser usar senha fraca so zerar tudo menos minLength
   @IsStrongPassword({
-     minLength: 5,
+    minLength: 5,
     minLowercase: 1,
     minUppercase: 1,
     minNumbers: 1,
