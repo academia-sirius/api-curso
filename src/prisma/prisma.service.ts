@@ -12,6 +12,8 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       await app.close();
     });
   }
+}
+
   /**
    async enableShutdownHook(app: INestApplication){
     this.$on('beforeExit', async ()=>{
@@ -19,4 +21,3 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     })
   }
    */
-}
