@@ -61,6 +61,13 @@ export class UserController {
    return this.userservice.Delete(id);
   }
 
+
+
+
+
+
+
+  
   /** 
    * aqui embora receba id no Decorator Delete mas ele retorna todos os Param
    *  
