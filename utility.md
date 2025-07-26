@@ -7,7 +7,8 @@
 > rm -rf src/user
 
 > git push --set-upstream origin feature-crud-nestjs
-> npm i  class-validator class-transformer @nestjs/mapped-types
+
+> npm i  class-validator class-transformer @nestjs/mapped-types prisma 
 
 #### add validator dto on main/bootstrap
 > npm i class-validator class-transformer
@@ -20,6 +21,12 @@
 > npm i -D prisma
 > npx prisma init
 
+  > npx prisma generate
+  > npx prisma db pull
+
+  > npx prisma migrate reset (apaga tudo)
+> npx prisma migrate dev --name AddBirthDates
+> npx prisma generate
 
 
 
