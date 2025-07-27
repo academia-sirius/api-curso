@@ -38,6 +38,14 @@ export class UserService {
     return findId;
   }
 
+  
+  async LocatedID(id: number) {
+    const findId = this.prismaservice.user.findUnique({
+      where: { id },
+    });
+    return findId;
+  }
+
   async updatePut(id: number, { name, email, password, birthAt }: UpdatePutUserDTO) {
     await this.Exists(id);
     return this.prismaservice.user.update({
@@ -70,18 +78,14 @@ export class UserService {
   }
 
   async Exists(id:number){
-        if(!(await this.readOne(id))){
-      throw new NotFoundException(`O usuario ${id} nao existe`)
+        if(!(await this.LocatedID(id))){
+      throw new NotFoundException(`O usuario ${id} nao encontrado`)
     }
-  }
-
-    async totalRegistro(): Promise<number> {
-    return this.prismaservice.user.count();
   }
 
   async readOneOther(id: number) {
     const findId = await this.prismaservice.user.findUnique({where: { id },});
-    const total = await this.totalRegistro();
+    const total: number = await this.prismaservice.user.count();
     if(!(findId)){
       throw new NotFoundException(`O usuario ${id} nao existe no range de ${total}`)
     }

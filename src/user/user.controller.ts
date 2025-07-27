@@ -15,6 +15,7 @@ import { UpdatePutUserDTO } from './user.dto/updatePutUser.dto';
 import { UpdatePatchUserDTO } from './user.dto/updatePatchUser.dto';
 import { UserService } from './user.service';
 import { LogInterceptor } from 'src/interceptors/log.interceptor';
+import { ParamId } from 'src/decorators/param-id-decorator';
 
 // @UseInterceptors(LogInterceptor)  // interceptors - class
 @Controller('users')
@@ -60,8 +61,9 @@ export class UserController {
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id) {
-   // return { id };
+  async delete(@ParamId() id:number) {
+    console.log('id param'+ id );
+    
    return this.userservice.Delete(id);
   }
 

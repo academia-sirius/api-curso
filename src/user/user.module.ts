@@ -15,7 +15,7 @@ export class UserModule implements NestModule {
 
   configure(consumer: MiddlewareConsumer) {
       consumer.apply(UserIdCheckMiddleware).forRoutes({
-        path: 'users/id',
+        path: 'users/:id',
         method: RequestMethod.ALL
       })
   }
