@@ -8,13 +8,14 @@ import { UpdatePatchUserDTO } from './user.dto/updatePatchUser.dto';
 export class UserService {
   constructor(private readonly prismaservice: PrismaService) {}
 
-  async create({ name, email, password,birthAt}: CreateUserDTO) {
+  async create({ name, email, password,birthAt, bi}: CreateUserDTO) {
     return await this.prismaservice.user.create({
       data: {
         name,
         email,
         password,
         birthAt,
+        bi,
       },
       select: {
         id:true,
@@ -22,6 +23,7 @@ export class UserService {
         email:true,
         password:true,
         birthAt:true,
+        bi: true
       },
     });
   }
@@ -46,22 +48,23 @@ export class UserService {
     return findId;
   }
 
-  async updatePut(id: number, { name, email, password, birthAt }: UpdatePutUserDTO) {
+  async updatePut(id: number, { name, email, password, birthAt, bi  }: UpdatePutUserDTO) {
     await this.Exists(id);
     return this.prismaservice.user.update({
-        data: { name, email, password , birthAt : birthAt ? new Date(birthAt): ''},
+        data: { name, email, password , birthAt : birthAt ? new Date(birthAt): '', bi},
         where:{
             id
         }
     })
   }
 
-  async updatePatch(id: number, { name, email, password, birthAt }:UpdatePatchUserDTO){
+  async updatePatch(id: number, { name, email, password, birthAt, bi  }:UpdatePatchUserDTO){
     const data:any = {};
     if(birthAt){ data.birthAt = new Date(birthAt); }
     if(email){ data.email = email; }
     if(name){ data.name = name; }
     if(password){ data.password = password; }
+    if(bi){ data.bi = bi; }
 
     await this.Exists(id);
     return this.prismaservice.user.update({

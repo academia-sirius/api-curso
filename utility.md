@@ -81,3 +81,28 @@ model User {
 > npx prisma generate
 
 
+
+
+``` ts
+
+//aqui embora receba id no Decorator Delete mas ele retorna todos os Param
+ 
+ @Delete(':id')
+        async delete(@Param() Param){
+        return { Param}
+  }
+
+  @Get(':id')
+  async readOne(@Param() Param) {
+    return { user: {}, Param };
+  }
+  @Put(':id')
+  async updatePut(@Body() body:UpdatePutUserDTO, @Param() Param) {
+    return { method: 'Put', body, Param };
+  }
+  @Patch(':id')
+  async updatePatch(@Body() body:UpdatePatchUserDTO, @Param() Param) {
+    return { method: 'Patch', body, Param };
+  }
+
+   ```

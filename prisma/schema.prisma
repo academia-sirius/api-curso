@@ -9,14 +9,17 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement()) @db.UnsignedInt
-  name      String   @db.VarChar(45)
-  email     String   @db.VarChar(127)
-  password  String   @db.VarChar(127)
+  id        Int       @id @default(autoincrement()) @db.UnsignedInt
+  name      String    @db.VarChar(45)
+  email     String    @db.VarChar(127)
+  password  String    @db.VarChar(127)
   birthAt   DateTime? @db.DateTime()
-  createdAt DateTime @default(now()) @db.Timestamp(0)
-  updatedAt DateTime @default(now()) @db.Timestamp(0)
+  bi        String?   @db.VarChar(45)
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt DateTime  @default(now()) @db.Timestamp(0)
+
+  @@index([id], map: "Index_Id")
   @@map("users")
 }
-// ao trocar o nome do model users -> user tenho que informar ao banco  @@map("users")
 
+// ao trocar o nome do model users -> user tenho que informar ao banco  @@map("users")
