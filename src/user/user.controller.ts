@@ -24,9 +24,9 @@ export class UserController {
 
   // @UseInterceptors(LogInterceptor)  // interceptors - metodo
   @Post()
-  async create(@Body() { name, email, password, birthAt }: CreateUserDTO) {
+  async create(@Body() { name, email, password, birthAt , bi}: CreateUserDTO) {
     // return { name,email,password };
-   return this.userservice.create({ name, email, password, birthAt });
+   return this.userservice.create({ name, email, password, birthAt, bi });
   }
   @Get()
   async read() {

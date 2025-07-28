@@ -21,5 +21,6 @@ export class CreateUserDTO {
   birthAt: string;
 
   @IsAngolanID()
+  @IsOptional()
   bi?: string;
 }
